@@ -4,12 +4,16 @@ var tbody = d3.select('tbody');
 
 // VALLIE CODE
 // Console.log the weather data from data.js
+// ****************************
 console.log(tableData);
+// ****************************
 
 // // Step 1: Loop Through `data` and console.log each ufo sighting report object
+// ************************************
 tableData.forEach(function(ufoReport) {
   console.log(ufoReport);
 });
+// **************************************
 
 // // Step 2:  Use d3 to append one table row `tr` for each weather report object
 // // Don't worry about adding cells or text yet, just try appending the `tr` elements.
@@ -48,20 +52,88 @@ tableData.forEach(function(ufoReport) {
 
 // // Step 5: Use d3 to update each cell's text with
 // // weather report values (weekday, date, high, low)
-tableData.forEach(function(ufoReport) {
-  console.log(ufoReport);
-  var row = tbody.append("tr");
-  Object.entries(ufoReport).forEach(function([key, value]) {
-    console.log(key, value);
-    // Append a cell to the row for each value
-    // in the weather report object
-    var cell = row.append("td");
-    cell.text(value);
-  });
-});
+// **********************************************888
+// tableData.forEach(function(ufoReport) {
+//   console.log(ufoReport);
+//   var row = tbody.append("tr");
+//   Object.entries(ufoReport).forEach(function([key, value]) {
+//     console.log(key, value);
+//     // Append a cell to the row for each value
+//     // in the weather report object
+//     var cell = row.append("td");
+//     cell.text(value);
+//   });
+// });
+
+
 
 var button = d3.select("#filter-btn");
-var inputField = d3.select(".form-control");
+var inputField = d3.select("#datetime");
+// button.on("click", function() {
+//   console.log("hey");
+//   console.log(d3.event.target);
+// });
+// button.on("click", function() {
+//     var userInput = d3.select(".form-control");
+//     console.log(`USERINPUT: ${userInput}`);
+
+//     var userDate = userInput.property("value");
+  
+//     console.log(`USER DATE: ${userDate}`);
+//     console.log(tableData);
+
+//     var filteredDates = tableData.filter(objectRow => objectRow.datetime === userDate);
+//     console.log(filteredDates);
+// });
+
+button.on("click", handleClick);
+
+function handleClick() {
+  var filteredDates = tableData;
+  var userInput = d3.select(".form-control");
+  var userDate = userInput.property("value");
+  console.log(`USER DATE: ${userDate}`);
+  var filteredDates = tableData.filter(objectRow =>
+    objectRow.datetime === userDate);
+  console.log(filteredDates);
+  renderTable(filteredDates);  
+}
+
+
+
+
+
+
+
+
+
+// inputField.on("change", function() {
+//     var newDate = d3.event.target.value;
+//     console.log(`New Date Input: ${newDate}`);
+
+// });
+
+// *****************************************************
+
+//TRYING TO MAKE ABOVE CODE LOOK LIKE GERONIMO'S
+//******************************************************* */
+function renderTable(arrayOfObjects) {
+  arrayOfObjects.forEach(objectRow => {
+    console.log(arrayOfObjects);
+    var row = tbody.append("tr");
+
+    Object.values(objectRow).forEach(value => {
+      var cell = row.append("td");
+      cell.text(value);
+    });
+  });
+}
+
+renderTable(tableData);
+
+
+
+//********************************************************* */
 
 // function handleClick() {
 //     console.log("The filter button was clicked!");
@@ -71,23 +143,37 @@ var inputField = d3.select(".form-control");
 // button.on("click", handleClick);
 
 // This will change the text that's in the date-input box
-inputField.on("change", function() {
-    var newDate = d3.event.target.value;
-    console.log(newDate);
+// ******************************************************
+// inputField.on("change", function() {
+//     var newDate = d3.event.target.value;
+//     console.log(`New Date Input: ${newDate}`);
 
-});
+// });
 
-button.on("click", function() {
-    var userInput = d3.select(".form-control");
+// button.on("click", function() {
+//     var userInput = d3.select(".form-control");
 
-    var userDate = userInput.property("value");
+//     var userDate = userInput.property("value");
+  
+//     console.log(`User Date: ${userDate}`);
+//     console.log(tableData);
 
-    console.log(userDate);
-    console.log(tableData);
+//     var filteredDates = tableData.filter(ufoRow => ufoRow.datetime === userDate);
+//     console.log(filteredDates);
+// });
+// ****************************************************************
 
-    var filteredDates = tableData.filter(ufoRow => ufoRow.datetime === userDate);
-    console.log(filteredDates);
-});
+// function handleClick() {
+//     var filteredData = tableData;
+//     var date = d3.select('#datetime').property('value');
+//     if (date) { filteredData = filteredData.filter(row => row.date === date) };
+//     d3.select('#datetime').property("value","");
+//     renderTable(filteredData);
+// };
+
+// d3.select('#filter-btn').on("click", handleClick);
+
+
 
 
 
