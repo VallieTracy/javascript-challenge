@@ -1,18 +1,63 @@
-// from data.js
-var tableData = data;
-var tbody = d3.select('tbody');
+// Everything for app.js in ufo folder 1, all working. Geronimo
+// From data.js
+var ufoData = data;
+var tbody = d3.select("tbody");
 
-// VALLIE CODE
-// Console.log the weather data from data.js
-// ****************************
-console.log(tableData);
-// ****************************
+function renderTable(arrayofObjects) {
+  // Empty table
+  tbody.html("");
+    
+    arrayofObjects.forEach(objectRow => {
+        var row = tbody.append("tr");
+
+        Object.values(objectRow).forEach(value => {
+            var cell = row.append("td");
+            cell.text(value);
+        });
+    });
+}
+
+renderTable(ufoData);
+
+var button = d3.select("#filter-btn"); 
+button.on("click", handleClick);   
+
+function handleClick() {
+  var filteredDates = ufoData;
+  //"input" might have to be different in level 2
+  var userInput = d3.select("input");
+  var userDate = userInput.property("value");
+  console.log(`USER DATE: ${userDate}`);
+  if (userDate) {
+
+    filteredDates = ufoData.filter(objectRow =>
+      objectRow.datetime === userDate);
+    console.log(filteredDates);
+  }
+  //line below is outside the 'if' statement so that if the userDate
+  //doesn't exist, the table still renders
+  renderTable(filteredDates);
+  d3.select("input").property("value", "");
+}
+
+
+
+
+
+
+// // from data.js
+// var ufoData = data;
+// var tbody = d3.select('tbody');
+
+
+// console.log(ufoData);
+
 
 // // Step 1: Loop Through `data` and console.log each ufo sighting report object
 // ************************************
-tableData.forEach(function(ufoReport) {
-  console.log(ufoReport);
-});
+// ufoData.forEach(function(ufoReport) {
+//   console.log(ufoReport);
+// });
 // **************************************
 
 // // Step 2:  Use d3 to append one table row `tr` for each weather report object
@@ -66,9 +111,10 @@ tableData.forEach(function(ufoReport) {
 // });
 
 
-
-var button = d3.select("#filter-btn");
-var inputField = d3.select("#datetime");
+// 88888888888888888888888888888888888888888888888888888888888888888888888888888
+// var button = d3.select("#filter-btn");
+// var inputField = d3.select("#datetime");
+// 88888888888888888888888888888888888888888888888888888888888888888888888888888
 // button.on("click", function() {
 //   console.log("hey");
 //   console.log(d3.event.target);
@@ -86,18 +132,20 @@ var inputField = d3.select("#datetime");
 //     console.log(filteredDates);
 // });
 
-button.on("click", handleClick);
+// 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+// button.on("click", handleClick);
 
-function handleClick() {
-  var filteredDates = tableData;
-  var userInput = d3.select(".form-control");
-  var userDate = userInput.property("value");
-  console.log(`USER DATE: ${userDate}`);
-  var filteredDates = tableData.filter(objectRow =>
-    objectRow.datetime === userDate);
-  console.log(filteredDates);
-  renderTable(filteredDates);  
-}
+// function handleClick() {
+//   var filteredDates = tableData;
+//   var userInput = d3.select(".form-control");
+//   var userDate = userInput.property("value");
+//   console.log(`USER DATE: ${userDate}`);
+//   var filteredDates = tableData.filter(objectRow =>
+//     objectRow.datetime === userDate);
+//   console.log(filteredDates);
+//   renderTable(filteredDates);  
+// }
+// 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 
 
@@ -117,20 +165,21 @@ function handleClick() {
 
 //TRYING TO MAKE ABOVE CODE LOOK LIKE GERONIMO'S
 //******************************************************* */
-function renderTable(arrayOfObjects) {
-  arrayOfObjects.forEach(objectRow => {
-    console.log(arrayOfObjects);
-    var row = tbody.append("tr");
+// 88888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+// function renderTable(arrayOfObjects) {
+//   arrayOfObjects.forEach(objectRow => {
+//     console.log(arrayOfObjects);
+//     var row = tbody.append("tr");
 
-    Object.values(objectRow).forEach(value => {
-      var cell = row.append("td");
-      cell.text(value);
-    });
-  });
-}
+//     Object.values(objectRow).forEach(value => {
+//       var cell = row.append("td");
+//       cell.text(value);
+//     });
+//   });
+// }
 
-renderTable(tableData);
-
+// renderTable(tableData);
+// 8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
 
 
 //********************************************************* */
@@ -172,6 +221,50 @@ renderTable(tableData);
 // };
 
 // d3.select('#filter-btn').on("click", handleClick);
+
+
+
+// Everything for app.js in ufo folder 1, all working. Geronimo
+// From data.js
+// var ufoData = data;
+// var tbody = d3.select("tbody");
+
+// function renderTable(arrayofObjects) {
+//   // Empty table
+//   tbody.html("");
+    
+//     arrayofObjects.forEach(objectRow => {
+//         var row = tbody.append("tr");
+
+//         Object.values(objectRow).forEach(value => {
+//             var cell = row.append("td");
+//             cell.text(value);
+//         });
+//     });
+// }
+
+// renderTable(ufoData);
+
+// var button = d3.select("#filter-btn"); 
+// button.on("click", handleClick);   
+
+// function handleClick() {
+//   var filteredDates = ufoData;
+//   //"input" might have to be different in level 2
+//   var userInput = d3.select("input");
+//   var userDate = userInput.property("value");
+//   console.log(`USER DATE: ${userDate}`);
+//   if (userDate) {
+
+//     filteredDates = ufoData.filter(objectRow =>
+//       objectRow.datetime === userDate);
+//     console.log(filteredDates);
+//   }
+//   //line below is outside the 'if' statement so that if the userDate
+//   //doesn't exist, the table still renders
+//   renderTable(filteredDates);
+//   d3.select("input").property("value", "");
+// }
 
 
 
