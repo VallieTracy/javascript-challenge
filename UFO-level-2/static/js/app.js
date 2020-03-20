@@ -26,42 +26,13 @@ renderTable(ufoData);
 
 var filter_criteria = {};
 
-// var button = d3.select("#filter-btn");
-// button.on("click", handleClick);
-
-// function handleClick() {
-//   var filteredData = ufoData;
-//   console.log("The button was clicked");
-//   var userInput = d3.select(".form-control");
-//   var userData = userInput.property("value");
-  
-// }
-
-// console.log(Object.entries(ufoData));
-// ufoData.forEach(ufo => console.log(`${ufo.city}: ${ufo.shape}`));
-
-// 
-
-ufoData.forEach((ufo) => {
-  //console.log(ufo);
-  Object.entries(ufo).forEach(([key, value]) => {
-    //console.log(`KEY: ${key} and VALUE: ${value}`);
-  });
-});
-
 var button = d3.select("#filter-btn");
 button.on("click", handleClick);
-
-
-// function testHandle() {
-//   console.log(d3.select(this));
-// }
-// d3.selectAll(".filter").on("change", testHandle);
 
 function handleClick() {
   filter_criteria = {};
   var filteredData = ufoData;
-  //console.log("Button was clicked.");
+  console.log("Button was clicked.");
 
   var dateInput = d3.select("#input-datetime");
   var dateData = dateInput.property("value");
@@ -74,50 +45,36 @@ function handleClick() {
   var cityInput = d3.select("#input-city");
   var cityData = cityInput.property("value");
   var cityID = cityInput.attr("id");
+  
   if (cityData != "") {
     filter_criteria[cityID] = cityData;
   }
+
+  var stateInput = d3.select("#input-state");
+  var stateData = stateInput.property("value");
+  var stateID = stateInput.attr("id");
   
+  if (stateData != "") {
+    filter_criteria[stateID] = stateData;
+  }
+  
+  var countryInput = d3.select("#input-country");
+  var countryData = countryInput.property("value");
+  var countryID = countryInput.attr("id");
+  
+  if (countryData != "") {
+    filter_criteria[countryID] = countryData;
+  }
   
   var shapeInput = d3.select("#input-shape");
   var shapeData = shapeInput.property("value");
   var shapeID = shapeInput.attr("id");
+  
   if (shapeData != "") {
     filter_criteria[shapeID] = shapeData;
   }
   
   console.log(filter_criteria);
-  
-  
-
-  // if (dateData) {
-  //   filteredData = ufoData.filter(object => object.datetime === dateData);
-  //   renderTable(filteredData);
-  //   d3.select("input").property("value", "");
-  //   //console.log(filteredData);
-  // }
-
-  // else if (cityData) {
-  //   filteredData = ufoData.filter(object => object.city === cityData);
-  //   renderTable(filteredData);
-  //   d3.select("input").property("value", "");
-  //   //console.log(filteredData);
-  // }
-
-  // else if (shapeData) {
-  //   filteredData = ufoData.filter(object => object.shape === shapeData);
-  //   renderTable(filteredData);
-  //   d3.select("input").property("value", "");
-  //   //console.log(filteredData);
-  // }
-
-  renderTable(filteredData);
-  d3.select("input").property("value", "");
-  
-
-
-
-
 }
 
 
@@ -267,4 +224,3 @@ function handleClick() {
 //   renderTable(filteredDates);
 //   d3.select("input").property("value", "");
 // }
-
