@@ -1,53 +1,173 @@
 // From data.js
 var ufoData = data;
-//var filteredData = data;
 var tbody = d3.select("tbody");
 
-
-
-var filters = {};
-
+// A function that will render the data into a table
 function renderTable(arrayofObjects) {
+  
   // Empty table before iterating thru 'arrayofObjects'
   tbody.html("");
     
-    // Iterate thru each object, create variable 'row' which will add <tr> tags to tbody for each object
+  // Iterate thru each object, create variable 'row' which will add <tr> tags to tbody for each object
     arrayofObjects.forEach(objectData => {
         var row = tbody.append("tr");
         
-        // Loop thru Object values, create variable 'cell' which will add empty <td> tags for each for every <tr> tag created above
+        // Loop thru Object values, create variable 'cell' which will add empty <td> tags for every <tr> tag created above
         Object.values(objectData).forEach(value => {
             var cell = row.append("td");
+            
             // Place values inside of those cells
             cell.text(value);
           });
     });
 }
 
-// Create table using function 'renderTable'
 renderTable(ufoData);
 
-var button = d3.select("input"); 
-button.on("change", handleChange);   
+var filter_criteria = {};
 
-function handleChange() {
+// var button = d3.select("#filter-btn");
+// button.on("click", handleClick);
+
+// function handleClick() {
+//   var filteredData = ufoData;
+//   console.log("The button was clicked");
+//   var userInput = d3.select(".form-control");
+//   var userData = userInput.property("value");
+  
+// }
+
+// console.log(Object.entries(ufoData));
+// ufoData.forEach(ufo => console.log(`${ufo.city}: ${ufo.shape}`));
+
+// 
+
+ufoData.forEach((ufo) => {
+  //console.log(ufo);
+  Object.entries(ufo).forEach(([key, value]) => {
+    //console.log(`KEY: ${key} and VALUE: ${value}`);
+  });
+});
+
+var button = d3.select("#filter-btn");
+button.on("click", handleClick);
+
+
+// function testHandle() {
+//   console.log(d3.select(this));
+// }
+// d3.selectAll(".filter").on("change", testHandle);
+
+function handleClick() {
+  filter_criteria = {};
   var filteredData = ufoData;
-  //"input" might have to be different in level 2
-  var userInput = d3.select("input");
-  var userDate = userInput.property("value");
-  console.log(`USER DATE: ${userDate}`);
-  if (userDate) {
+  //console.log("Button was clicked.");
 
-    filteredData = ufoData.filter(objectRow =>
-      objectRow.datetime === userDate);
-    console.log(filteredData);
+  var dateInput = d3.select("#input-datetime");
+  var dateData = dateInput.property("value");
+  var dateID = dateInput.attr("id");
+
+  if (dateData != "") {
+    filter_criteria[dateID] = dateData;
   }
-  //line below is outside the 'if' statement so that if the userDate
-  //doesn't exist, the table still renders
-  renderTable(filteredDates);
+  
+  var cityInput = d3.select("#input-city");
+  var cityData = cityInput.property("value");
+  var cityID = cityInput.attr("id");
+  if (cityData != "") {
+    filter_criteria[cityID] = cityData;
+  }
+  
+  
+  var shapeInput = d3.select("#input-shape");
+  var shapeData = shapeInput.property("value");
+  var shapeID = shapeInput.attr("id");
+  if (shapeData != "") {
+    filter_criteria[shapeID] = shapeData;
+  }
+  
+  console.log(filter_criteria);
+  
+  
+
+  // if (dateData) {
+  //   filteredData = ufoData.filter(object => object.datetime === dateData);
+  //   renderTable(filteredData);
+  //   d3.select("input").property("value", "");
+  //   //console.log(filteredData);
+  // }
+
+  // else if (cityData) {
+  //   filteredData = ufoData.filter(object => object.city === cityData);
+  //   renderTable(filteredData);
+  //   d3.select("input").property("value", "");
+  //   //console.log(filteredData);
+  // }
+
+  // else if (shapeData) {
+  //   filteredData = ufoData.filter(object => object.shape === shapeData);
+  //   renderTable(filteredData);
+  //   d3.select("input").property("value", "");
+  //   //console.log(filteredData);
+  // }
+
+  renderTable(filteredData);
   d3.select("input").property("value", "");
+  
+
+
+
+
 }
 
+
+
+
+// var input = d3.selectAll('input');
+// // "change" is working better than "click", line below
+// input.on('change', handleClick);
+
+// // Create the handler function (which will tell the table how to behave when the button is clicked)
+// function handleClick() {
+//   console.log("Button clicked.");
+//   let filteredData = ufoData;
+  
+//   var key = d3.select(this).property('id');
+//   var value = d3.select(this).property('value');
+//   //var input = d3.selectAll('input');
+//   //console.log(input);
+  
+//   console.log("KEY:", key, ":","VALUE:", value); 
+  
+//   var userInput = d3.select("input");
+//   var userData = userInput.property("value");
+//   console.log(`USER DATE: ${userData}`);
+  
+//   if (userData) {
+//     filteredData = ufoData.filter(object => object[key] === value);
+//     console.log(filteredData);
+//   }
+//   renderTable(filteredData);
+//   d3.select("input").property("value", "");
+// }
+
+
+
+
+// function handleChange() {
+//   var key = d3.select(this).property('id');
+//   var value = d3.select(this).property('value');
+
+//   console.log(key,': ',value);
+
+//   var userInput = d3.select("#Date");
+//   var userDate = userInput.property("value");
+//   console.log(`USER DATE: ${userDate}`);
+
+//   if (userDate) {
+//     filteredData = filteredData.filter(objectRow => objectRow[key] === value);
+//     console.log(filteredData);
+//   }
 
 
 
