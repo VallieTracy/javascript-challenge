@@ -23,6 +23,9 @@ function renderTable(arrayofObjects) {
 }
 
 renderTable(ufoData);
+console.log("UFO DATA");
+console.log(ufoData);
+console.log(Object.entries(ufoData));
 
 var filter_criteria = {};
 
@@ -32,7 +35,7 @@ button.on("click", handleClick);
 function handleClick() {
   filter_criteria = {};
   var filteredData = ufoData;
-  console.log("Button was clicked.");
+  //console.log("Button was clicked.");
 
   var dateInput = d3.select("#input-datetime");
   var dateData = dateInput.property("value");
@@ -74,8 +77,43 @@ function handleClick() {
     filter_criteria[shapeID] = shapeData;
   }
   
-  console.log(filter_criteria);
+  console.log("Object.keys:");
+  console.log(Object.keys(filter_criteria));
+  console.log("Object.values:");
+  console.log(Object.values(filter_criteria));
+  console.log("Object.entries:");
+  console.log(Object.entries(filter_criteria));
+  
 }
+
+
+
+function filterTable(filteredObject) {
+  tbody.html("");
+  let filteredData = ufoData;
+
+  ufoData.forEach(ufo => {
+    console.log("DATETIMES:");
+    console.log(ufoData[0]);
+    if (ufoData[0] = "1/2/2010") {
+      console.log("yup");
+    }
+  })
+
+  console.log("Contents of filters():");
+  console.log(filters);
+  console.log("this will print when filterTable(filter_criteria) isn't commented");
+
+  renderTable(filteredData);
+  
+  
+   
+  
+  
+}
+
+filterTable(filter_criteria);
+
 
 
 
