@@ -1,5 +1,6 @@
 // From data.js
 var ufoData = data;
+// Variable for table body within the index
 var tbody = d3.select("tbody");
 
 // A function that will render the data into a table
@@ -22,159 +23,82 @@ function renderTable(arrayOfObjects) {
     });
 }
 
+// Call the function to render the table
 renderTable(ufoData);
 
 var filter_criteria = {};
+// tried creating the filter_criteria object inside of function handleClick, but that doesn't work
+// note: if i don't put var infront of filter_criteria inside function (and nix it out here), then it does work.  FYI.
 
+// Locate the button inside index.html and say what happens when it's clicked
 var button = d3.select("#filter-btn");
 button.on("click", handleClick);
 
+// Function that will create a new ufoObject based on user input
 function handleClick() {
+  // Create empty object to hold user input
   filter_criteria = {};
-  var filteredData = ufoData;
-  //console.log("Button was clicked.");
-
+  
+  // DATE USER INPUT
+  // Locate input field
   var dateInput = d3.select("#datetime");
+  // Create variable to hold input text
   var dateData = dateInput.property("value");
+  // Create variable to hold index.html 'id' for that text
   var dateID = dateInput.attr("id");
-
+  //  If that input field isn't empty, then add that key:value pair to filter_criteria object
   if (dateData != "") {
     filter_criteria[dateID] = dateData;
   }
   
+  // CITY USER INPUT
   var cityInput = d3.select("#city");
   var cityData = cityInput.property("value");
   var cityID = cityInput.attr("id");
-  
   if (cityData != "") {
     filter_criteria[cityID] = cityData;
   }
-
+  
+  // STATE USER INPUT
   var stateInput = d3.select("#state");
   var stateData = stateInput.property("value");
   var stateID = stateInput.attr("id");
-  
   if (stateData != "") {
     filter_criteria[stateID] = stateData;
   }
   
+  // COUNTRY USER INPUT
   var countryInput = d3.select("#country");
   var countryData = countryInput.property("value");
   var countryID = countryInput.attr("id");
-  
   if (countryData != "") {
     filter_criteria[countryID] = countryData;
   }
   
+  // SHAPE USER INPUT
   var shapeInput = d3.select("#shape");
   var shapeData = shapeInput.property("value");
   var shapeID = shapeInput.attr("id");
-  
   if (shapeData != "") {
     filter_criteria[shapeID] = shapeData;
   }
   
+  // Call function in order to build table based off the new filters
   filterTable();
-  
-  
 }
-
 
 function filterTable() {
-  //tbody.html("");
   let filteredData = ufoData;
-  let filters = filter_criteria;
-  
-  Object.entries(filters).forEach(([key, value]) => {
+   
+  // Loop thru filter_criteria and filter original data where it has a match
+  Object.entries(filter_criteria).forEach(([key, value]) => {
     filteredData = filteredData.filter(row => row[key] === value);
-    //console.log(row[key]);
   });
-  console.log(filter_criteria);
+  
+  // Call renderTable function for the newly filtered data
   renderTable(filteredData);
-  console.log("filter ran");
 }
 
-d3.selectAll(".filter").on("click", handleClick);
-
-
-
-
-
-
-
-
-
-// var input = d3.selectAll('input');
-// // "change" is working better than "click", line below
-// input.on('change', handleClick);
-
-// // Create the handler function (which will tell the table how to behave when the button is clicked)
-// function handleClick() {
-//   console.log("Button clicked.");
-//   let filteredData = ufoData;
-  
-//   var key = d3.select(this).property('id');
-//   var value = d3.select(this).property('value');
-//   //var input = d3.selectAll('input');
-//   //console.log(input);
-  
-//   console.log("KEY:", key, ":","VALUE:", value); 
-  
-//   var userInput = d3.select("input");
-//   var userData = userInput.property("value");
-//   console.log(`USER DATE: ${userData}`);
-  
-//   if (userData) {
-//     filteredData = ufoData.filter(object => object[key] === value);
-//     console.log(filteredData);
-//   }
-//   renderTable(filteredData);
-//   d3.select("input").property("value", "");
-// }
-
-
-
-
-// function handleChange() {
-//   var key = d3.select(this).property('id');
-//   var value = d3.select(this).property('value');
-
-//   console.log(key,': ',value);
-
-//   var userInput = d3.select("#Date");
-//   var userDate = userInput.property("value");
-//   console.log(`USER DATE: ${userDate}`);
-
-//   if (userDate) {
-//     filteredData = filteredData.filter(objectRow => objectRow[key] === value);
-//     console.log(filteredData);
-//   }
-
-
-
-
-
-  
-
-  
-
-
-
-
-//   var userInput = d3.select("input");
-//   var userDate = userInput.property("value");
-//   console.log(`USER DATE: ${userDate}`);
-//   if (userDate) {
-
-//     filteredData = filteredData.filter(objectRow =>
-//       objectRow[key] === value);
-//     console.log(filteredDates);
-//   }
-//   //line below is outside the 'if' statement so that if the userDate
-//   //doesn't exist, the table still renders
-//   renderTable(filteredDates);
-//   d3.select("input").property("value", "");
-// }
 
 
 
@@ -185,66 +109,3 @@ d3.selectAll(".filter").on("click", handleClick);
 
 
 
-
-
-
-
-
-
-
-// function filterTable() {
-//   let filteredData = ufoData;
-
-//   console.log("Contents of filters():");
-//   console.log(filters);
-
-//   Object.entries(filters).forEach(([key, value]) => {
-//     filteredData = filteredData.filter(row => row[key] === value);
-//   });
-  
-//   renderTable(filteredData);  
-  
-
-// }
-
-// renderTable(ufoData); 
-
-
-
-// var input = d3.selectAll('input');
-// input.on('change', handleChange);
-
-
-// function handleChange() {
-//   var key = d3.select(this).property('id');
-//   var value = d3.select(this).property('value');
-
-//   console.log(key,': ',value);
-
-//   var userInput = d3.select("#Date");
-//   var userDate = userInput.property("value");
-//   console.log(`USER DATE: ${userDate}`);
-
-//   if (userDate) {
-//     filteredData = filteredData.filter(objectRow => objectRow[key] === value);
-//     console.log(filteredData);
-//   }
-
-
-//--------------------------------------------------------------------
-
-  //"input" might have to be different in level 2
-//   var userInput = d3.select("input");
-//   var userDate = userInput.property("value");
-//   console.log(`USER DATE: ${userDate}`);
-//   if (userDate) {
-
-//     filteredData = filteredData.filter(objectRow =>
-//       objectRow[key] === value);
-//     console.log(filteredDates);
-//   }
-//   //line below is outside the 'if' statement so that if the userDate
-//   //doesn't exist, the table still renders
-//   renderTable(filteredDates);
-//   d3.select("input").property("value", "");
-// }
