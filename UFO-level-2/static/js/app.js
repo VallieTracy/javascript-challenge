@@ -3,17 +3,17 @@ var ufoData = data;
 var tbody = d3.select("tbody");
 
 // A function that will render the data into a table
-function renderTable(arrayofObjects) {
+function renderTable(arrayOfObjects) {
   
   // Empty table before iterating thru 'arrayofObjects'
   tbody.html("");
     
   // Iterate thru each object, create variable 'row' which will add <tr> tags to tbody for each object
-    arrayofObjects.forEach(objectData => {
+    arrayOfObjects.forEach(objectRow => {
         var row = tbody.append("tr");
         
         // Loop thru Object values, create variable 'cell' which will add empty <td> tags for every <tr> tag created above
-        Object.values(objectData).forEach(value => {
+        Object.values(objectRow).forEach(value => {
             var cell = row.append("td");
             
             // Place values inside of those cells
@@ -23,9 +23,6 @@ function renderTable(arrayofObjects) {
 }
 
 renderTable(ufoData);
-console.log("UFO DATA");
-console.log(ufoData);
-console.log(Object.entries(ufoData));
 
 var filter_criteria = {};
 
@@ -37,7 +34,7 @@ function handleClick() {
   var filteredData = ufoData;
   //console.log("Button was clicked.");
 
-  var dateInput = d3.select("#input-datetime");
+  var dateInput = d3.select("#datetime");
   var dateData = dateInput.property("value");
   var dateID = dateInput.attr("id");
 
@@ -45,7 +42,7 @@ function handleClick() {
     filter_criteria[dateID] = dateData;
   }
   
-  var cityInput = d3.select("#input-city");
+  var cityInput = d3.select("#city");
   var cityData = cityInput.property("value");
   var cityID = cityInput.attr("id");
   
@@ -53,7 +50,7 @@ function handleClick() {
     filter_criteria[cityID] = cityData;
   }
 
-  var stateInput = d3.select("#input-state");
+  var stateInput = d3.select("#state");
   var stateData = stateInput.property("value");
   var stateID = stateInput.attr("id");
   
@@ -61,7 +58,7 @@ function handleClick() {
     filter_criteria[stateID] = stateData;
   }
   
-  var countryInput = d3.select("#input-country");
+  var countryInput = d3.select("#country");
   var countryData = countryInput.property("value");
   var countryID = countryInput.attr("id");
   
@@ -69,7 +66,7 @@ function handleClick() {
     filter_criteria[countryID] = countryData;
   }
   
-  var shapeInput = d3.select("#input-shape");
+  var shapeInput = d3.select("#shape");
   var shapeData = shapeInput.property("value");
   var shapeID = shapeInput.attr("id");
   
@@ -77,42 +74,31 @@ function handleClick() {
     filter_criteria[shapeID] = shapeData;
   }
   
-  console.log("Object.keys:");
-  console.log(Object.keys(filter_criteria));
-  console.log("Object.values:");
-  console.log(Object.values(filter_criteria));
-  console.log("Object.entries:");
-  console.log(Object.entries(filter_criteria));
+  filterTable();
+  
   
 }
 
 
-
-function filterTable(filteredObject) {
-  tbody.html("");
+function filterTable() {
+  //tbody.html("");
   let filteredData = ufoData;
-
-  ufoData.forEach(ufo => {
-    console.log("DATETIMES:");
-    console.log(ufoData[0]);
-    if (ufoData[0] = "1/2/2010") {
-      console.log("yup");
-    }
-  })
-
-  console.log("Contents of filters():");
-  console.log(filters);
-  console.log("this will print when filterTable(filter_criteria) isn't commented");
-
+  let filters = filter_criteria;
+  
+  Object.entries(filters).forEach(([key, value]) => {
+    filteredData = filteredData.filter(row => row[key] === value);
+    //console.log(row[key]);
+  });
+  console.log(filter_criteria);
   renderTable(filteredData);
-  
-  
-   
-  
-  
+  console.log("filter ran");
 }
 
-filterTable(filter_criteria);
+d3.selectAll(".filter").on("click", handleClick);
+
+
+
+
 
 
 
