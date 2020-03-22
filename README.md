@@ -1,5 +1,5 @@
 # JavaScript Homework - JavaScript and DOM Manipulation
-### *Finished Website:*
+### **Finished Website:**
 https://vallietracy.github.io/javascript-challenge/
 ## Background
 
